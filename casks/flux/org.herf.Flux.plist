@@ -1,0 +1,18 @@
+{
+    "2B403F70-8C69-1D41-496D-61168633C695" = "file:///Library/ColorSync/Profiles/Displays/DELL%20P2210-2B403F70-8C69-1D41-496D-61168633C695.icc";
+    "590906B3-7A5F-F5C2-FE1D-8FBB46D49392" = "file:///Library/ColorSync/Profiles/Displays/DELL%20P2210-590906B3-7A5F-F5C2-FE1D-8FBB46D49392.icc";
+    "9DB7F7A6-FC81-79A8-D541-E35E12FABF2F" = "file:///Library/ColorSync/Profiles/Displays/VS278-9DB7F7A6-FC81-79A8-D541-E35E12FABF2F.icc";
+    SUHasLaunchedBefore = 1;
+    SULastCheckTime = "2017-03-06 20:01:23 +0000";
+    SULastProfileSubmissionDate = "2017-03-06 18:56:57 +0000";
+    darkTheme = 0;
+    firstrun = 1488826616;
+    location = "47.6,-122.3";
+    locationTextField = "47.6,-122.3";
+    locationType = L;
+    melanopicDisable = 0;
+    "offer-qs" = 1;
+    version = 3;
+    wakeNotifyDisable = 1;
+    wakeTime = 480;
+}

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# make vim the default editor.
+export EDITOR='vim';
+
+# use standard ISO 8601 timestamp
+# %F equivalent to %Y-%m-%d
+# %T equivalent to %H:%M:%S (24-hours format)
+export HISTTIMEFORMAT='%F %T '
+
+# keep history up to date, across sessions, in realtime
+#  http://unix.stackexchange.com/a/48113
+export HISTCONTROL="erasedups:ignoreboth"       # no duplicate entries
+export HISTSIZE=100000                          # big big history (default is 500)
+export HISTFILESIZE="${HISTSIZE}"               # big big history
+
+# don't record some commands
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
+
+# prefer US English and use UTF-8.
+export LANG='en_US.UTF-8';
+export LC_ALL='en_US.UTF-8';
+
+# highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}";
+
+# don’t clear the screen after quitting a manual page.
+export MANPAGER='less -X';
+
+# save casks Application folder
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# save and reload the history after each command finishes
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# LS_COLORS
+command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
+eval "$(gdircolors -b ~/.dircolors)"
+
+# set GOPATH
+export GOPATH="$HOME/src"
+
+# set NVM_DIR
+export NVM_DIR="$HOME/.nvm"

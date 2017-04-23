@@ -1,0 +1,135 @@
+
+" colors {{{
+syntax enable                                   " turn on syntax highlighting
+colorscheme vashon
+let g:airline_theme="wombat"                    " set airline theme
+let g:airline_powerline_fonts=1                 " powerlinefonts are installed
+let g:airline#extensions#tabline#enabled = 1
+set background=dark                             " assume a dark background
+" }}}
+
+" misc {{{
+set backspace=indent,eol,start                  " make backspace work normal
+cmap w!! w !sudo tee % >/dev/null
+" }}}
+
+"spaces & tabs {{{
+set tabstop=2                                   " set tabstop to 2 spaces 
+set expandtab                                   " convert all tabs to spaces
+set softtabstop=2                               " simulate 2 space tabs
+set shiftwidth=2                                " auto-indent 2 spaces
+set modelines=1                                 " apply file based mode overides
+filetype on                                     " detect the filetype
+filetype indent on                              " apply filetype indent rules 
+filetype plugin on                              " apply filetype plugins
+set autoindent
+"}}}
+
+" ui layout {{{
+set lsp=0                                       " space text out (easier to read)
+set number                                      " turn on line numbers
+set showcmd                                     " show (partial) command in status line 
+set ruler                                       " show current cursor position
+set cursorline                                  " highlight the cursor line
+set cmdheight=2                                 " set the command bar height
+set wildmenu                                    " enable command-line completion
+set lazyredraw                                  " don't redraw screen as much
+set showmatch                                   " show matching chars
+set showtabline=2                               " always show tabline
+set laststatus=2                                " always show statusline
+set fillchars+=vert:┃
+" }}}
+
+" searching {{{
+set ignorecase                                  " ignore case when searching 
+set incsearch                                   " search while typing search string
+set hlsearch                                    " highlight search
+" }}}
+
+" folding {{{
+"set foldmethod=indent                          " fold on indents
+set foldnestmax=10                              " fold upto 10 indent levels
+set foldenable                                  " enabled folding
+nnoremap <space> za
+set foldlevelstart=10                           " close 10 fold levels on start
+" }}}
+
+" line movement {{{
+nnoremap j gj
+nnoremap k gk
+nnoremap gV `[v`]
+" }}}
+
+" leader shortcuts {{{
+let mapleader=","
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>n :set number!<CR>
+nnoremap <leader><space> :noh<CR>
+" }}}
+
+" plug: airline {{{
+let g:airline_powerline_fonts = 1
+" }}}
+
+" plug: vim-go {{{
+let g:go_highlight_functions = 1  
+let g:go_highlight_methods = 1  
+let g:go_highlight_structs = 1  
+let g:go_highlight_operators = 1  
+let g:go_highlight_build_constraints = 1
+" }}}
+
+" autogroups {{{
+augroup configgroup
+  autocmd!
+  autocmd VimEnter * highlight clear SignColumn
+  autocmd BufWritePre *.py,*.js,*.txt,*.md,*.rb :call <SID>StripWhitespace()
+  autocmd BufEnter Makefile setlocal noexpandtab
+  autocmd BufEnter *.sh setlocal tabstop=2
+  autocmd BufEnter *.sh setlocal shiftwidth=2
+  autocmd BufEnter *.sh setlocal softtabstop=2
+  autocmd BufEnter *.py setlocal tabstop=4
+  autocmd BufEnter *.md setlocal ft=markdown
+augroup END
+" }}}
+
+" backups {{{
+set foldnestmax=10                              " fold upto 10 indent levels
+set backup                                      " enable backup
+set backupdir=~/.vim/backup                     " set backupdir
+set backupskip=/tmp/*,/private/tmp/*            " skip backup for these dirs
+set directory=~/.vim/tmp                        " swap file directory
+" }}}
+
+" vim-plug plugs {{{
+call plug#begin('~/.vim/plugged')
+Plug 'vim-airline/vim-airline'                  " best status line evar
+Plug 'vim-airline/vim-airline-themes'           " standard airline themes
+Plug 'mkitt/tabline.vim'                        " better tabline format
+Plug 'scrooloose/nerdtree'                      " file explorer
+Plug 'pangloss/vim-javascript'                  " javascript filetype
+Plug 'scrooloose/nerdcommenter'                 " comment with ease
+Plug 'scrooloose/syntastic'                     " syntax checker
+Plug 'chriskempson/base16-vim'                  " syntax highlighting
+Plug 'fatih/vim-go'                             " golang plugin
+Plug 'tpope/vim-surround'                       " surround text with char/s
+Plug 'elzr/vim-json'                            " syntax highlighting for json
+Plug 'isRuslan/vim-es6'                         " syntax highlighting & es6 snippets
+Plug 'tpope/vim-markdown'                       " syntax highlighting for markdown
+Plug 'gorodinskiy/vim-coloresque'               " view colors
+call plug#end()
+" }}}
+
+" functions {{{
+function! <SID>StripWhitespace()
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  let @/=_s
+  call cursor(l, c)
+endfunction
+" }}}
+
+" vim: foldmethod=marker:foldlevel=0

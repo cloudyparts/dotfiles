@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# create a new directory and enter it
+mkd() {
+    mkdir -p "$@" && cd "$@"
+}
+
+# cd into whatever is the forefront Finder window.
+cdf() {  # short for cdfinder
+  cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
+}
+
+add_path() {
+  if [ -d "$1" ] && [[ ! ${PATH} =~ (^|:)$1(:|$) ]]; then
+    export PATH+=:$1
+  fi
+}
+
+# syntax-highlight JSON strings or files
+# Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
+
+json() {
+    if [ -t 0 ]; then # argument
+        python -mjson.tool <<< "$*" | pygmentize -l javascript
+    else # pipe
+        python -mjson.tool | pygmentize -l javascript
+    fi
+}
+
+# take ownership of file/dir
+
+mine() {
+  local u=$(whoami)
+  logal g=$(groups $u | cut -d ' ' -f 1)
+  sudo chown $u:$g "$@"
+}

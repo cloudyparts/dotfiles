@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "${BASH_SOURCE}")";
+
+CWD="$( cd "$( dirname "$0" )" && pwd )"
+source "${CWD}/.lib.sh"
+
+
+# is brew installed?
+brew help &> /dev/null
+BREW_INSTALLED=$([[ $? -eq 127 ]] && echo false || echo true)
+
+
+install_homebrew() {
+  local url=https://raw.githubusercontent.com/Homebrew/install/master/install
+  msg "installing homebrew"
+  echo | /usr/bin/ruby -e "$(curl -fsSL ${url})" > $LOG 2>&1
+  status "$?"
+  update_homebrew
+  run "brew tap homebrew/dupes"
+  run "brew tap homebrew/versions"
+  run "brew tap beeftornado/rmtree"
+  run "brew tap caskroom/fonts"
+  run "brew tap caskroom/cask"
+}
+
+
+update_homebrew() {
+  run "brew update"
+  run "brew upgrade"
+}
+
+
+function bootstrap() {
+  sudo -v
+  sh "${CWD}/macos/macos.sh" bootstrap
+
+  sudo -v
+  sh "${CWD}/formulas/formula.sh" bootstrap
+
+  sudo -v 
+  sh "${CWD}/casks/cask.sh" bootstrap
+
+  run "brew cleanup"
+  echo "${grn}configuration complete."
+  echo "Please restart your system so that all configuration changes can take effect.${end}"
+}
+
+
+function caution() {
+  echo "${yel}"
+  echo "*** CAUTION ****"
+  echo "This script is will configure your MacOS system with a very opinionated"
+  echo "setup. This script requires sudo access to your system to complete the"
+  echo "configuration. Please thoroughly read through the code and understand"
+  echo "what it does before you run this script. Use at your own risk!${end}"
+  echo ""
+  read -p "${red}Do you wish to proceed? (y/n) ${end}" -n 1;
+  echo "";
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    [ ! $BREW_INSTALLED ] && install_homebrew || update_homebrew
+    bootstrap
+  else
+    echo ""
+    echo "${grn}Have a nice day!${end}"
+  fi;
+}
+
+
+case $1 in
+  bootstrap)
+      caution
+      ;;
+  formula)
+      [ ! $BREW_INSTALLED ] && install_homebrew || update_homebrew
+      sh "${CWD}/formulas/formula.sh" ${@:2}
+      ;;
+  cask)
+      [ ! $BREW_INSTALLED ] && install_homebrew || update_homebrew
+      sh "${CWD}/casks/cask.sh" ${@:2}
+      ;;
+  macos)
+      sh "${CWD}/macos/macos.sh" ${@:2}
+      ;;
+  *)
+      echo $"Usage: dotctl {bootstrap|formula|cask|macos}"
+      exit 1
+esac
+
+exit 0;

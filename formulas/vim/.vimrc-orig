@@ -1,0 +1,91 @@
+" vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker
+
+" ----------------------------------------------------------------------
+"  General
+" ----------------------------------------------------------------------
+filetype on                         " detect the type of file
+filetype plugin on                  " load plugin files for specific filetypes
+filetype indent on                  " load indent files for specific filetypes
+syntax on                           " turn on syntax highlighting
+set viewoptions=cursor,unix,slash   " 
+set nocompatible                    " get out of vi-compatible model
+set history=1000                    " remember 1000 lines of history
+set undolevels=500                  " make sure I can revert back any changes
+set clipboard+=unnamed              " share clipboard among vi windows
+set ffs=unix                        " support unix filetypes
+set viminfo+=!                      " make sure it can save viminfo
+set isk+=_,$,@,%,#,-                " none of these should be word dividers
+set rtp+=/usr/local/opt/fzf
+
+" ----------------------------------------------------------------------
+"  Files
+" ----------------------------------------------------------------------
+set directory=/tmp                  " temp directory (this is where .swp files will be)
+set noautowrite                     " do not save the file automatically if it changes
+
+" ----------------------------------------------------------------------
+"  User Interface
+" ----------------------------------------------------------------------
+set lsp=0                           " space text out (easier to read)
+set wildmenu                        " make use of the 'status line' to show command line commands, filenames and more
+set ruler                           " show current currsor position
+set cmdheight=2                     " set the command bar height
+set number                          " turn on line numbers
+set lz                              " lazy redraw (don't redraw while running macros)
+set whichwrap+=b,s,h,l,<,>,[,]      " cursor keys can wrap too
+set shortmess=atI                   " shortens messages to avoid 'press a key' prompt
+set report=0                        " tell me when anything is changed via :
+set noshowcmd                       " no need to show (partial) command in status line
+" set noshowmode                      " hide the default mode text
+set showtabline=2                   " always display the tabline, even if there is only one tab 
+set background=dark                 " assume a dark background
+
+
+" ----------------------------------------------------------------------
+"  Visual Cues
+" ----------------------------------------------------------------------
+set hlsearch                      " do 'not hightlight' search for phrases
+set incsearch                       " do 'highlight' as you type your search phrase
+set so=10                           " keep 10 lines (top/bottom) for scope
+set novisualbell                    " don't blink at me
+set noerrorbells                    " don't make a sound
+set laststatus=2                    " always show the status line
+
+" sets chars to represent tab,trail... when in list mode; try ':set list'
+set listchars=tab:»·,trail:·,extends:>,precedes:<,eol:$
+
+" sets status line to display file format, type, current char ascii,hex codes, current cursor position
+set statusline=%F%m%r%h%w\ [%{&ff}]\ line\ %l\ of\ %L\ (%p%%)\ col\ %v\ \-\ \[%03.3b\ 0x\%02.2B]
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [COL=\%04v]\ [LINE:\ %04l\ of\ %L\ (%p%%)]
+
+set autoindent                      " autoindent
+set backspace=indent,eol,start      " make backspace work normal
+"set softtabstop=2                   " make backspace delete indent
+"set tabstop=2                       " set tabstop to 4 spaces
+"set expandtab                       " convert all tabs to spaces
+"set shiftwidth=2                    " indent/outdent by four columns
+"set shiftround                      " indent/outdent to nearest tabstop
+"set nowrap                          " don't wrap lines
+"set pastetoggle=<F12>
+"set incsearch
+"set foldenable
+
+"set rtp+=/Library/Python/2.7/site-packages/powerline/bindings/vim
+
+":let mapleader = ","
+"map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+"map <Leader>c :set nohlsearch<CR>
+
+
+"call plug#begin('~/.vim/plugged')
+"
+
+"autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+"
+
+
+set ts=2
+set number
+set expandtab
+set shiftwidth=4
+

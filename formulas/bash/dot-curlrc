@@ -1,0 +1,8 @@
+# disguise as safari 10.0.3 on OS X 10_11_6
+user-agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3 Safari/602.4.8"
+
+# When following a redirect, automatically set the previous URL as referer.
+referer = ";auto"
+
+# Wait 60 seconds before timing out.
+connect-timeout = 60

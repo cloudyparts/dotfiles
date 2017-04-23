@@ -1,0 +1,34 @@
+# -----------------------------------------------------------
+#   .screenrc 
+# -----------------------------------------------------------
+
+vbell off                           # turn off visual bell please
+autodetach on                       # auto detach on hangup
+startup_message off                 # turn off startup message
+crlf off                            # affects the copying of text regions
+defscrollback 5000                  # scroll back as much as I want
+shell -$SHELL                       # set the default shell the same as the $SHELL env var (effects vi syntax-color)
+nethack on                          # turn on funny messages
+bindkey -d \177 stuff ^H            # backspace as delete
+setenv DISPLAY ':0'                 # set display for those progs that need to know
+
+# -- emulate .logout message
+pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
+
+# -- set hardstatus line
+hardstatus alwayslastline ""
+
+# -- create a wonderful tabbar
+hardstatus string '%{= kg}%-w%{= Gk}%n %t%{-}%{= kg}%+w%< %{= kg}%-=%D %d %M %Y %c:%s%{-}'
+
+# -- change the default activity mesage to include a bell
+activity "Activity in %n ^G"
+
+# -- default screens
+
+screen  -t "alpha"
+screen  -t "beta"
+screen  -t "gamma" 
+screen  -t "delta"
+
+select 0
